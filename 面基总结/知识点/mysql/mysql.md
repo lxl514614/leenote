@@ -376,6 +376,10 @@ MySQL是最流行的开源SQL数据库管理系统，由Oracle Corporation开发
 
 ### INNODB
 
+https://www.jianshu.com/p/d4cc0ea9d097
+
+https://juejin.cn/post/6844904190477598733
+
 <img src="/Users/lee/Library/Application Support/typora-user-images/image-20201230222014927.png" alt="image-20201230222014927" style="zoom:50%;" />
 
 大家都知道mysql中数据是存储在物理磁盘上的，而真正的数据处理又是在内存中执行的。由于磁盘的读写速度非常慢，如果每次操作都对磁盘进行频繁读写的话，那么性能一定非常差。为了上述问题，**InnoDB将数据划分为若干页，以页作为磁盘与内存交互的基本单位，一般页的大小为16KB**。这样的话，一次性至少读取1页数据到内存中或者将1页数据写入磁盘。通过减少内存与磁盘的交互次数，从而提升性能。
