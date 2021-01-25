@@ -2,7 +2,9 @@
 
 ### 说一下 JVM 的主要组成部分及其作用？
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/YUYc62VIvE11cL7gll9hJdrrM5uDDDEyGDJgeTUINnUoUsdDJT2Tz0IWQjBWiaFf54lIs5UFEuMhlCbZIfr62IA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)JVM包含两个子系统和两个组件，两个子系统为Class loader(类装载)、Execution engine(执行引擎)；两个组件为Runtime data area(运行时数据区)、Native Interface(本地接口)。
+![image-20210105203536761](/Users/lee/Library/Application Support/typora-user-images/image-20210105203536761.png)
+
+JVM包含两个子系统和两个组件，两个子系统为Class loader(类装载)、Execution engine(执行引擎)；两个组件为Runtime data area(运行时数据区)、Native Interface(本地接口)。
 
 - Class loader(类装载)：根据给定的全限定名类名(如：java.lang.Object)来装载class文件到Runtime data area中的method area。
 - Execution engine（执行引擎）：执行classes中的指令。
@@ -17,7 +19,7 @@
 
 Java 虚拟机在执行 Java 程序的过程中会把它所管理的内存区域划分为若干个不同的数据区域。这些区域都有各自的用途，以及创建和销毁的时间，有些区域随着虚拟机进程的启动而存在，有些区域则是依赖线程的启动和结束而建立和销毁。Java 虚拟机所管理的内存被划分为如下几个区域：
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/YUYc62VIvE11cL7gll9hJdrrM5uDDDEyZYrFwA8wBNibwMLoJWuicmg1LQeJ4VIqY7xHYHtnA7awIWc8qXH0xY1w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![image-20210105203842374](/Users/lee/Library/Application Support/typora-user-images/image-20210105203842374.png)
 
 
 
@@ -86,13 +88,11 @@ PS：
 
 说到对象的创建，首先让我们看看 `Java` 中提供的几种对象创建方式：
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/YUYc62VIvE11cL7gll9hJdrrM5uDDDEyRqXiccqmic7sa81ia51HJNxCP9XHVANWMr5y0DC8cuDaQu3y5J8MJDHmQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![image-20210109002339979](/Users/lee/Library/Application Support/typora-user-images/image-20210109002339979.png)
 
 下面是对象创建的主要流程:
 
-
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/YUYc62VIvE11cL7gll9hJdrrM5uDDDEyKUXOw6DROJia9uw79mPiagFe8LO0uWea4icySqHT3gDG0T1fIS9xD6oEg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![image-20210105161133133](/Users/lee/Library/Application Support/typora-user-images/image-20210105161133133.png)
 
 
 
@@ -107,7 +107,7 @@ PS：
 
 选择哪种分配方式是由 Java 堆是否规整来决定的，而 Java 堆是否规整又由所采用的垃圾收集器是否带有压缩整理功能决定。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/YUYc62VIvE11cL7gll9hJdrrM5uDDDEyC5MDCP2YCnwkFzjzX9K5nXGufrpPqg0rImQWcIQyIy2oPWepLnJJicA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![image-20210105161153073](/Users/lee/Library/Application Support/typora-user-images/image-20210105161153073.png)
 
 ### 处理并发安全问题
 

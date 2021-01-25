@@ -544,14 +544,14 @@ sync_binlog=0：
 | 1（实时写，实时刷） | 事务每次提交都会将 `redo log buffer` 中的日志写入 `os buffer` 并调用 `fsync()` 刷到 `redo log file` 中。这种方式即使系统崩溃也不会丢失任何数据，但是因为每次提交都写入磁盘，IO的性能较差。 |
 | 2（实时写，延迟刷） | 每次提交都仅写入到 `os buffer` ，然后是每秒调用 `fsync()` 将 `os buffer`中的日志写入到 `redo log file` 。 |
 
-<img src="https:////upload-images.jianshu.io/upload_images/19895418-bfe97915131fbfe2?imageMogr2/auto-orient/strip|imageView2/2/w/550/format/webp" alt="img" style="zoom:50%;" />
+<img src="/Users/lee/Library/Application Support/typora-user-images/image-20210109233605579.png" alt="image-20210109233605579" style="zoom:50%;" />
 
 ##### redo log记录形式
 
 前面说过， `redo log` 实际上记录数据页的变更，而这种变更记录是没必要全部保存，因此 `redo log`
  实现上采用了大小固定，循环写入的方式，当写到结尾时，会回到开头循环写日志。如下图：
 
-<img src="https:////upload-images.jianshu.io/upload_images/19895418-da4122e456bba5bf?imageMogr2/auto-orient/strip|imageView2/2/w/588/format/webp" alt="img" style="zoom:50%;" />
+<img src="/Users/lee/Library/Application Support/typora-user-images/image-20210109233635232.png" alt="image-20210109233635232" style="zoom:50%;" />
 
 同时我们很容易得知， 在innodb中，既有`redo log` 需要刷盘，还有 `数据页` 也需要刷盘， `redo log`存在的意义主要就是降低对 `数据页` 刷盘的要求。在上图中， `write pos` 表示 `redo log` 当前记录的 `LSN` (逻辑序列号)位置， `check point` 表示 **数据页更改记录** 刷盘后对应 `redo log` 所处的 `LSN`(逻辑序列号)位置。`write pos` 到 `check point` 之间的部分是 `redo log` 空着的部分，用于记录新的记录；`check point` 到 `write pos` 之间是 `redo log` 待落盘的数据页更改记录。当 `write pos`追上 `check point`时，会先推动 `check point` 向前移动，空出位置再记录新的日志。
 

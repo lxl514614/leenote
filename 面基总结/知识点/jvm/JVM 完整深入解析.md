@@ -11,7 +11,7 @@ Java虚拟机在执行Java程序的过程中会将其管理的内存划分为若
 
 
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/JdLkEI9sZfdCa89KZ4Ls04tTqXvgxWViaNzBh1nVFhpnSd7jrEWoRLN5c5rf9vdqkSN5CvtnsZSN1oKWvMlYk2g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)clipboard.png
+![image-20210108235253894](/Users/lee/Library/Application Support/typora-user-images/image-20210108235253894.png)
 
 
 
@@ -21,13 +21,7 @@ Java虚拟机在执行Java程序的过程中会将其管理的内存划分为若
 
 **2、虚拟机栈**：虚拟机栈是Java执行方法的内存模型。每个方法被执行的时候，都会创建一个栈帧，把栈帧压人栈，当方法正常返回或者抛出未捕获的异常时，栈帧就会出栈。
 
-
-
 （1）栈帧：栈帧存储方法的相关信息，包含局部变量数表、返回值、操作数栈、动态链接
-
-
-
-
 
 a、局部变量表：包含了方法执行过程中的所有变量。局部变量数组所需要的空间在编译期间完成分配，在方法运行期间不会改变局部变量数组的大小。
 

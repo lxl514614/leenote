@@ -17,13 +17,13 @@
 
 内存是非常重要的系统资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。JVM 内存布局规定了 Java 在运行过程中内存申请、分配、管理的策略 ，保证了 JVM 的高效稳定运行。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_jpg/N1knSK6wthq7OicS5iaTvTlvszwgtg8FMC6bzSJCdcNdCX4w3H5aX0IeVAfiatUBfJacga6mE6YDsPibRqAXD09iaHw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+<img src="/Users/lee/Library/Application Support/typora-user-images/image-20210105161502170.png" alt="image-20210105161502170" style="zoom:50%;" />
 
-上图描述了当前比较经典的JVM内存布局。（堆区画小了2333，按理来说应该是最大的区域）
+上图描述了当前比较经典的JVM内存布局。
 
 如果按照线程是否共享来分类的话，如下图所示：
 
-![图片](https://mmbiz.qpic.cn/mmbiz_jpg/N1knSK6wthq7OicS5iaTvTlvszwgtg8FMCMLniblClk1HR8A2fIibHnqC5KBOSxZWOy3UuchOlHC7V7GEWoytweiaBg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![image-20210105161219112](/Users/lee/Library/Application Support/typora-user-images/image-20210105161219112.png)
 
 > PS：线程是否共享这点，实际上理解了每块区域的实际用处之后，就很自然而然的就记住了。不需要死记硬背。
 
@@ -35,11 +35,9 @@
 
 我们先来说堆。堆是 OOM故障最主要的发生区域。它是内存区域中最大的一块区域，被所有**线程共享**，存储着**几乎所有**的实例对象、数组。**所有的对象实例以及数组都要在堆上分配**，但是随着JIT编译器的发展与**逃逸分析技术**逐渐成熟，栈上分配、标量替换优化技术将会导致一些微妙的变化发生，**所有的对象都分配在堆上也渐渐变得不是那么“绝对”了**。
 
-> 延伸知识点：JIT编译优化中的一部分内容 - 
+> 延伸知识点：JIT编译优化中的一部分内容 
 >
 > 逃逸分析
->
-> 。
 >
 > 推荐阅读：深入理解Java中的逃逸分析
 
@@ -59,7 +57,7 @@ Java堆是垃圾收集器管理的主要区域，因此**很多时候也被称�
 
 另外，再强调一下堆空间内存分配的大体情况。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_jpg/N1knSK6wthq7OicS5iaTvTlvszwgtg8FMCqPEsXmOU8R6PUf4HwvbuNdGeUGQNiaUtepj2gqLwBo2vHGKbSz9Oj5w/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![image-20210105161237920](/Users/lee/Library/Application Support/typora-user-images/image-20210105161237920.png)
 
 这里可能就会有人来问了，你从哪里知道的呢？如果我想配置这个比例，要怎么修改呢？
 
@@ -131,7 +129,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 看完上面对堆的介绍，我们趁热打铁再学习一下JVM创建一个新对象的内存分配流程。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_jpg/N1knSK6wthq7OicS5iaTvTlvszwgtg8FMC7rvEZd2cWyF4lqWfpRQMtPg1okrFticOy2GjeyEtqQmPicIic161Jibc7w/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+<img src="/Users/lee/Library/Application Support/typora-user-images/image-20210105161257898.png" alt="image-20210105161257898" style="zoom:50%;" />
 
 绝大部分对象在Eden区生成，当Eden区装填满的时候，会触发`Young Garbage Collection`，即`YGC`。垃圾回收的时候，在Eden区实现清除策略，没有被引用的对象则直接回收。依然存活的对象会被移送到Survivor区。Survivor区分为so和s1两块内存空间。每次`YGC`的时候，它们将存活的对象复制到未使用的那块空间，然后将当前正在使用的空间完全清除，交换两块空间的使用状态。如果`YGC`要移送的对象大于Survivor区容量的上限，则直接移交给老年代。一个对象也不可能永远呆在新生代，就像人到了18岁就会成年一样，在JVM中`－XX:MaxTenuringThreshold`参数就是来配置一个对象从新生代晋升到老年代的阈值。默认值是**15**， 可以在Survivor区交换14次之后，晋升至老年代。
 
@@ -184,7 +182,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 可以看出栈帧在整个JVM 体系中的地位颇高。下面也具体介绍一下栈帧中的存储信息。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_jpg/N1knSK6wthq7OicS5iaTvTlvszwgtg8FMCSpH1C8oNE6WPjicaGmxJO1xfPnBavhA878b8TF8ce9OPuguW9Fsziapg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+<img src="/Users/lee/Library/Application Support/typora-user-images/image-20210105162807878.png" alt="image-20210105162807878" style="zoom:50%;" />
 
 ### 1. 局部变量表
 
@@ -203,7 +201,7 @@ public int test(int a, int b) {
 
 如果局部变量是Java的8种基本基本数据类型，则存在局部变量表中，如果是引用类型。如new出来的String，局部变量表中存的是引用，而实例在堆中。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_jpg/N1knSK6wthq7OicS5iaTvTlvszwgtg8FMCD3tujg1byoT1TPClBktmpWy7MpyibMgOBicvOwJN05yQkIIyf6sU1Arw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![image-20210105161319879](/Users/lee/Library/Application Support/typora-user-images/image-20210105161319879.png)
 
 ### 2. 操作栈
 
