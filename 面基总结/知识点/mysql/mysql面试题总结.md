@@ -1,10 +1,34 @@
 ### MySQL中varchar(20)和varchar(255)的区别?
 
+varchar是边长字节,存储占用空间上二者没有差别,在索引内存空间分配上, 长度越长对内容占用越多
+
 ### MySQL中大表加字段或索引的方式?
+
+前缀索引或生成唯一标识字段,对唯一标识字段建立索引
 
 ### MySQL中事务隔离级别?
 
+读未提交
+
+读已提交
+
+不可重复度
+
+序列化
+
 ### MySQL的innodb和myIsam存储引擎的区别?
+
+innodb支持行锁, myisam不支持
+
+innodb支持外键, myisam不支持
+
+innodb支持事务,myisam不支持
+
+innodb使用mvcc机制,myisam没有
+
+innodb5.7之前不支持全文索引, myisam支持全文索引
+
+selectcount(*)上面myisam更快,存储引擎做了计数缓存
 
 ### 1. 能说下myisam 和 innodb的区别吗？
 
@@ -241,17 +265,13 @@ insert into user(age) values(30); #失败
 
 基于现在微服务拆分来说，都是已经做到了垂直分库了
 
-![img](https:////upload-images.jianshu.io/upload_images/20012016-071f0496a0133512.png?imageMogr2/auto-orient/strip|imageView2/2/w/1098/format/webp)
-
-image.png
+![image-20210109232541696](/Users/lee/Library/Application Support/typora-user-images/image-20210109232541696.png)
 
 **垂直分表**
 
 如果表字段比较多，将不常用的、数据较大的等等做拆分
 
-![img](https:////upload-images.jianshu.io/upload_images/20012016-25204a30ff28bb42.png?imageMogr2/auto-orient/strip|imageView2/2/w/548/format/webp)
-
-image.png
+<img src="/Users/lee/Library/Application Support/typora-user-images/image-20210109232510918.png" alt="image-20210109232510918" style="zoom:50%;" />
 
 **水平分表**
 
@@ -327,10 +347,3 @@ image.png
 ### 13. 那主从的延迟怎么解决呢？
 
 这个问题貌似真的是个无解的问题，只能是说自己来判断了，需要走主库的强制走主库查询。
-
-
-
-作者：爱码士人员
-链接：https://www.jianshu.com/p/fe70172d80d2
-来源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
